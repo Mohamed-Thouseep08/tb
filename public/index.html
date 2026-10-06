@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191715">
+  <meta name="description" content="Reserve your table and savour modern Indian cooking at Saffron & Ember, Bengaluru.">
+  <title>Saffron & Ember | A table worth gathering around</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="#top" aria-label="Saffron and Ember home">
+      <span class="brand-mark"><i class="fa-solid fa-fire-flame-curved" aria-hidden="true"></i></span>
+      <span class="brand-name">SAFFRON <span>&</span> EMBER<small>INDIAN KITCHEN · BENGALURU</small></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="#menu" data-i18n="navMenu">The menu</a>
+      <a href="#reserve" data-i18n="navReserve">Reservations</a>
+      <a href="#story" data-i18n="navStory">Our table</a>
+    </nav>
+    <div class="header-actions">
+      <label class="sr-only" for="language" data-i18n="languageLabel">Language</label>
+      <select id="language" class="language-select" aria-label="Language">
+        <option value="en">EN</option><option value="ta">தமிழ்</option><option value="hi">हिन्दी</option>
+      </select>
+      <button class="icon-button theme-toggle" id="theme-toggle" type="button" aria-label="Toggle light mode" title="Toggle light mode"><i class="fa-regular fa-sun"></i></button>
+      <a class="admin-link" href="/admin"><i class="fa-solid fa-arrow-right-to-bracket"></i><span data-i18n="navAdmin">Admin</span></a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-image" role="img" aria-label="Warmly lit restaurant table set for dinner"></div>
+      <div class="hero-content">
+        <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="heroEyebrow">A TABLE WORTH GATHERING AROUND</span></p>
+        <h1 id="hero-title" data-i18n="heroTitle">Good food.<br>Better company.</h1>
+        <p class="hero-copy" data-i18n="heroCopy">A modern Indian kitchen, rooted in tradition and made for the moments that stay with you.</p>
+        <a class="button button-gold" href="#reserve"><span data-i18n="heroCta">Reserve a table</span><i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+      <div class="hero-caption"><span class="caption-dot"></span><span data-i18n="heroNote">OPEN DAILY · 12 PM—10 PM</span></div>
+      <a href="#reserve" class="hero-scroll"><span data-i18n="scrollHint">A little more to savour</span><i class="fa-solid fa-arrow-down"></i></a>
+    </section>
+
+    <section class="reservation-section section-pad" id="reserve">
+      <div class="section-heading">
+        <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="reserveEyebrow">YOUR EVENING, MADE</span></p>
+        <h2 data-i18n="reserveTitle">Find your table</h2>
+        <p data-i18n="reserveCopy">Choose a time and we’ll find the right corner for your party.</p>
+      </div>
+      <form id="availability-form" class="availability-form">
+        <label class="field"><span data-i18n="date">Date</span><input id="booking-date" name="date" type="date" required></label>
+        <label class="field"><span data-i18n="time">Dining time</span><select id="booking-slot" name="slot" required></select></label>
+        <label class="field"><span data-i18n="guests">Guests</span><select id="booking-guests" name="guests" required>
+          <option value="1">1 guest</option><option value="2" selected>2 guests</option><option value="3">3 guests</option><option value="4">4 guests</option><option value="5">5 guests</option><option value="6">6 guests</option><option value="7">7 guests</option><option value="8">8 guests</option>
+        </select></label>
+        <div class="field area-field"><span data-i18n="diningArea">Dining room</span><div class="segmented-control" role="group" aria-label="Dining area">
+          <button type="button" class="segment active" data-area="AC" data-i18n="acDining">AC dining</button>
+          <button type="button" class="segment" data-area="Non-AC" data-i18n="nonAcDining">Open-air dining</button>
+        </div></div>
+        <button class="button button-dark find-button" type="submit"><span data-i18n="findTables">Find a table</span><i class="fa-solid fa-arrow-right"></i></button>
+      </form>
+      <div class="availability-panel hidden" id="availability-panel">
+        <div class="floorplan-heading">
+          <div><p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="chooseTable">Choose your table</span></p><h3 id="hall-title">AC dining</h3></div>
+          <div class="legend"><span><i class="legend-dot available-dot"></i><span data-i18n="available">Available</span></span><span><i class="legend-dot booked-dot"></i><span data-i18n="booked">Booked</span></span><span><i class="legend-dot selected-dot"></i><span data-i18n="selected">Selected</span></span></div>
+        </div>
+          <div class="floorplan" id="floorplan" aria-live="polite"></div>
+        <form id="reservation-form" class="guest-form hidden">
+          <div class="guest-form-title"><h3 data-i18n="yourDetails">Your details</h3><span id="selection-summary"></span></div>
+          <div class="guest-fields">
+            <label class="field"><span data-i18n="fullName">Full name</span><input name="name" autocomplete="name" minlength="2" required></label>
+            <label class="field"><span data-i18n="phone">Phone number</span><input name="phone" type="tel" autocomplete="tel" minlength="8" required></label>
+            <label class="field"><span data-i18n="email">Email (optional)</span><input name="email" type="email" autocomplete="email"></label>
+            <button class="button button-gold" type="submit"><span data-i18n="confirmBooking">Confirm reservation</span><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section class="menu-section section-pad" id="menu">
+      <div class="menu-intro">
+        <div class="section-heading">
+          <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="menuEyebrow">FROM OUR KITCHEN</span></p>
+          <h2 data-i18n="menuTitle">The menu</h2>
+          <p data-i18n="menuCopy">Made slowly, served generously. Every dish tells a little of where we come from.</p>
+        </div>
+        <div class="menu-search"><i class="fa-solid fa-magnifying-glass"></i><input id="menu-search" type="search" data-i18n-placeholder="searchMenu" placeholder="Find a dish"><button id="diet-filter" type="button" class="diet-filter" aria-label="Toggle vegetarian filter"><span class="veg-symbol"></span><span data-i18n="vegetarian">Vegetarian</span></button></div>
+      </div>
+      <div class="menu-layout">
+        <div class="menu-main">
+          <div class="category-tabs" id="category-tabs" role="tablist" aria-label="Menu categories"></div>
+          <div class="menu-grid" id="menu-grid" aria-live="polite"></div>
+        </div>
+        <aside class="order-panel" aria-label="Your order">
+          <div class="order-panel-top"><div><p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="cart">Order summary</span></p><h3 data-i18n="yourOrder">Your order</h3></div><span id="cart-count" class="cart-count">0</span></div>
+          <p class="order-empty" id="empty-cart" data-i18n="emptyCart">Your order is waiting to happen.</p>
+          <div class="cart-lines" id="cart-lines"></div>
+          <div class="order-link"><label class="field"><span data-i18n="reservationId">Reservation ID</span><input id="cart-reservation-id" type="number" min="1" placeholder="e.g. 1042"></label><button type="button" id="bill-history-button" class="history-button"><i class="fa-regular fa-clock"></i><span data-i18n="billHistory">Bill history</span></button></div>
+          <div class="coupon-row"><label class="field"><span data-i18n="coupon">Coupon code</span><input id="coupon-code" type="text" placeholder="WELCOME10"></label><button type="button" id="apply-coupon" class="outline-button" data-i18n="apply">Apply</button></div>
+          <div class="bill-estimate"><div><span data-i18n="subtotal">Subtotal</span><strong id="cart-subtotal">₹0</strong></div><div><span data-i18n="gst">GST · 5%</span><strong id="cart-gst">₹0</strong></div><div><span data-i18n="serviceCharge">Service · 5%</span><strong id="cart-service">₹0</strong></div><div id="cart-ac-row" class="hidden"><span data-i18n="acCharge">AC dining fee</span><strong id="cart-ac">₹0</strong></div><div id="cart-discount-row" class="hidden"><span data-i18n="discount">Discount</span><strong id="cart-discount">−₹0</strong></div><div class="estimate-total"><span data-i18n="estimatedTotal">Estimated total</span><strong id="cart-total">₹0</strong></div></div>
+          <div class="split-control"><label for="split-count" data-i18n="splitBill">Split this bill</label><div><input id="split-count" type="number" min="1" max="20" value="1"><span id="split-amount">₹0 <small data-i18n="perPerson">per person</small></span></div></div>
+          <button class="button button-dark checkout-button" id="checkout-button" type="button"><span data-i18n="createBill">Review & pay</span><i class="fa-solid fa-arrow-right"></i></button>
+          <p class="order-footnote"><i class="fa-solid fa-lock"></i> Secure demo checkout</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="story-section" id="story">
+      <div class="story-photo" role="img" aria-label="A chef preparing a traditional Indian dish"></div>
+      <div class="story-copy">
+        <p class="eyebrow"><span class="eyebrow-line"></span><span data-i18n="ourStoryEyebrow">A PLACE AT OUR TABLE</span></p>
+        <h2 data-i18n="ourStoryTitle">A little warmth,<br>a lot of heart.</h2>
+        <p data-i18n="ourStoryCopy">From the first sizzle in the tandoor to the last cup of chai, Saffron & Ember brings the familiar and the unexpected to one table.</p>
+        <span class="story-signature">Saffron <i>&</i> Ember</span>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand footer-brand" href="#top"><span class="brand-mark"><i class="fa-solid fa-fire-flame-curved"></i></span><span class="brand-name">SAFFRON <span>&</span> EMBER<small>INDIAN KITCHEN · BENGALURU</small></span></a>
+    <div class="footer-detail"><h3 data-i18n="hoursTitle">Come by</h3><p data-i18n="hours">Every day, 12:00 pm — 10:00 pm</p><p data-i18n="address">24 Residency Road, Bengaluru</p></div>
+    <div class="footer-detail"><h3 data-i18n="contact">Call us</h3><a href="tel:+918055012424">+91 80 5501 2424</a><p>hello@saffronember.example</p></div>
+    <div class="footer-social"><h3 data-i18n="follow">Follow along</h3><div><a href="https://instagram.com" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a><a href="https://facebook.com" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a><a href="https://x.com" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a></div></div>
+    <div class="footer-bottom"><span>© <span id="year"></span> Saffron & Ember</span><span>Made for the moments around the table.</span></div>
+  </footer>
+
+  <dialog class="app-dialog" id="app-dialog" aria-label="Reservation and payment details"><div class="dialog-content" id="dialog-content"></div><button class="dialog-close icon-button" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button></dialog>
+  <div class="toast-region" id="toast-region" aria-live="polite" aria-atomic="true"></div>
+  <script src="/app.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#191715">
+  <title>Operations | Saffron & Ember</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+  <link rel="stylesheet" href="/admin.css">
+</head>
+<body>
+  <main class="login-screen" id="login-screen">
+    <a class="login-back" href="/"><i class="fa-solid fa-arrow-left"></i> Back to restaurant</a>
+    <form class="login-form" id="login-form">
+      <div class="login-mark"><i class="fa-solid fa-fire-flame-curved"></i></div>
+      <p class="eyebrow">SAFFRON & EMBER · OPERATIONS</p>
+      <h1>Good evening.</h1>
+      <p class="login-copy">Sign in to manage today's service.</p>
+      <label>Username<input name="username" autocomplete="username" required></label>
+      <label>Password<input name="password" type="password" autocomplete="current-password" required></label>
+      <button class="primary-button" type="submit"><span>Sign in</span><i class="fa-solid fa-arrow-right"></i></button>
+      <p class="login-error hidden" id="login-error" role="alert"></p>
+      <p class="login-hint">Demo credentials: <strong>admin / admin123</strong></p>
+    </form>
+  </main>
+
+  <div class="admin-app hidden" id="admin-app">
+    <aside class="sidebar" id="sidebar">
+      <a class="sidebar-brand" href="/"><span class="brand-mark"><i class="fa-solid fa-fire-flame-curved"></i></span><span>SAFFRON <i>&</i> EMBER<small>RESTAURANT OPERATIONS</small></span></a>
+      <p class="sidebar-label">WORKSPACE</p>
+      <nav class="side-nav" aria-label="Admin navigation">
+        <button class="side-link active" type="button" data-view="overview"><i class="fa-solid fa-chart-line"></i><span>Overview</span></button>
+        <button class="side-link" type="button" data-view="reservations"><i class="fa-regular fa-calendar-check"></i><span>Reservations</span></button>
+        <button class="side-link" type="button" data-view="tables"><i class="fa-solid fa-border-all"></i><span>Tables</span></button>
+        <button class="side-link" type="button" data-view="menu"><i class="fa-solid fa-utensils"></i><span>Menu</span></button>
+        <button class="side-link" type="button" data-view="customers"><i class="fa-regular fa-address-card"></i><span>Customers</span></button>
+      </nav>
+      <div class="sidebar-bottom"><a href="/" target="_blank"><i class="fa-solid fa-arrow-up-right-from-square"></i> Open restaurant site</a><button id="logout-button" type="button"><i class="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button></div>
+    </aside>
+
+    <div class="admin-main">
+      <header class="topbar">
+        <button class="icon-action mobile-menu" id="mobile-menu" type="button" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button>
+        <div class="topbar-context"><span>SAFFRON & EMBER</span><i class="fa-solid fa-chevron-right"></i><strong id="breadcrumb">Overview</strong></div>
+        <div class="topbar-actions"><span class="service-status"><i></i> Service live</span><span class="topbar-date" id="topbar-date"></span><button class="icon-action" id="refresh-button" type="button" aria-label="Refresh dashboard" title="Refresh"><i class="fa-solid fa-rotate"></i></button></div>
+      </header>
+
+      <main class="workspace">
+        <section class="view-section active" id="view-overview">
+          <div class="page-heading"><div><p class="eyebrow" id="service-eyebrow">TODAY'S SERVICE · BENGALURU</p><h1>Good service starts here.</h1><p class="subheading">A clear view of today's table and the week behind it.</p></div><a class="export-button" href="/api/admin/export/daily-sales.csv"><i class="fa-solid fa-file-csv"></i> Export daily sales</a></div>
+          <div class="metric-grid">
+            <article class="metric"><div class="metric-label"><span>Today's reservations</span><i class="fa-regular fa-calendar-check"></i></div><strong id="metric-reservations">—</strong><small>Confirmed & seated</small></article>
+            <article class="metric"><div class="metric-label"><span>Today's revenue</span><i class="fa-solid fa-indian-rupee-sign"></i></div><strong id="metric-revenue">—</strong><small>Successful payments</small></article>
+            <article class="metric"><div class="metric-label"><span>Today's orders</span><i class="fa-solid fa-bowl-food"></i></div><strong id="metric-orders">—</strong><small>Orders placed today</small></article>
+            <article class="metric metric-highlight"><div class="metric-label"><span>Most ordered today</span><i class="fa-solid fa-star"></i></div><strong class="metric-dish" id="metric-dish">—</strong><small id="metric-dish-count">No orders yet</small></article>
+          </div>
+          <div class="chart-grid">
+            <article class="chart-panel chart-wide"><div class="panel-heading"><div><h2>Daily revenue</h2><p>Successful payments · last 7 days</p></div><span class="chart-unit">INR</span></div><div class="chart-wrap"><canvas id="revenue-chart" aria-label="Daily revenue chart"></canvas></div></article>
+            <article class="chart-panel"><div class="panel-heading"><div><h2>Dining room usage</h2><p>Today's reservations</p></div></div><div class="chart-wrap chart-small"><canvas id="area-chart" aria-label="Dining area chart"></canvas></div></article>
+            <article class="chart-panel"><div class="panel-heading"><div><h2>Payment mix</h2><p>Today's successful payments</p></div></div><div class="chart-wrap chart-small"><canvas id="payment-chart" aria-label="Payment mode chart"></canvas></div></article>
+          </div>
+          <section class="quick-section"><div class="panel-heading"><div><h2>Recent reservations</h2><p>Upcoming and recent bookings</p></div><button class="text-action" type="button" data-go-view="reservations">View all <i class="fa-solid fa-arrow-right"></i></button></div><div id="recent-reservations" class="table-wrap"></div></section>
+        </section>
+
+        <section class="view-section" id="view-reservations">
+          <div class="page-heading"><div><p class="eyebrow">SERVICE DESK</p><h1>Reservations</h1><p class="subheading">Update status, timing, and seating assignments.</p></div><div class="heading-actions"><button class="export-button" type="button" data-create="reservation"><i class="fa-solid fa-plus"></i> New reservation</button><button class="export-button" type="button" data-refresh-view="reservations"><i class="fa-solid fa-rotate"></i> Refresh list</button></div></div>
+          <div class="toolbar"><label class="search-field"><i class="fa-solid fa-magnifying-glass"></i><input id="reservation-search" type="search" placeholder="Search name, phone or booking ID"></label><span class="toolbar-count" id="reservation-count"></span></div><div id="reservations-list" class="table-wrap"></div>
+        </section>
+
+        <section class="view-section" id="view-tables">
+          <div class="page-heading"><div><p class="eyebrow">DINING ROOM</p><h1>Tables</h1><p class="subheading">Manage seating capacity, hall, and service status.</p></div><button class="export-button" type="button" data-create="table"><i class="fa-solid fa-plus"></i> Add table</button></div>
+          <div class="status-key"><span><i class="status-dot status-available"></i>Available</span><span><i class="status-dot status-reserved"></i>Reserved</span><span><i class="status-dot status-occupied"></i>Occupied</span><span><i class="status-dot status-unavailable"></i>Out of service</span></div><div id="tables-list" class="table-wrap"></div>
+        </section>
+
+        <section class="view-section" id="view-menu">
+          <div class="page-heading"><div><p class="eyebrow">KITCHEN & BAR</p><h1>Menu</h1><p class="subheading">Keep item names, prices, categories and availability up to date.</p></div><button class="export-button" type="button" data-create="menu"><i class="fa-solid fa-plus"></i> Add menu item</button></div>
+          <div class="toolbar"><label class="search-field"><i class="fa-solid fa-magnifying-glass"></i><input id="menu-search" type="search" placeholder="Search menu items"></label><span class="toolbar-count" id="menu-count"></span></div><div id="menu-list" class="table-wrap"></div>
+        </section>
+
+        <section class="view-section" id="view-customers">
+          <div class="page-heading"><div><p class="eyebrow">GUEST BOOK</p><h1>Customers</h1><p class="subheading">Guest details are shared across all reservations.</p></div><button class="export-button" type="button" data-create="customer"><i class="fa-solid fa-plus"></i> Add customer</button></div>
+          <div class="toolbar"><label class="search-field"><i class="fa-solid fa-magnifying-glass"></i><input id="customer-search" type="search" placeholder="Search name, phone or email"></label><span class="toolbar-count" id="customer-count"></span></div><div id="customers-list" class="table-wrap"></div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <dialog id="admin-dialog" class="admin-dialog"><form id="admin-dialog-form" method="dialog"><button class="dialog-x" type="button" aria-label="Close"><i class="fa-solid fa-xmark"></i></button><div id="admin-dialog-content"></div></form></dialog>
+  <div class="admin-toasts" id="admin-toasts" aria-live="polite"></div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+  <script src="/admin.js" defer></script>
+</body>
+</html>
